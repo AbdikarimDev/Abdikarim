@@ -1,1 +1,1 @@
-live preview(https://abdikariim.vercel.app/)
+live preview(https://cabdikarim.vercel.app/)
