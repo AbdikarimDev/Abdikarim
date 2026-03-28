@@ -92,26 +92,26 @@ const Portfolio = () => {
       client: false,
       link: "https://pinia-todo-list-three.vercel.app/", // replace with the live link
     },
-    {
-      id: 5,
-      title: "Interactive Button Component Design",
-      description:
-        "A versatile button component with multiple color styles designed for smooth interactions and easy integration into any project.",
-      tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
-      image: tailwis,
-      client: false,
-      link: "https://vue-setup.vercel.app/",
-    },
-    {
-      id: 6,
-      title: "New Year Countdown Timer",
-      description:
-        "An interactive countdown timer with real-time updates until the New Year in a vibrant, visually appealing layout.",
-      tags: ["HTML", "CSS", "JavaScript"],
-      image: countdown,
-      client: false,
-      link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-colored/New%20Year%20Count%20Down/index.html",
-    },
+    // {
+    //   id: 5,
+    //   title: "Interactive Button Component Design",
+    //   description:
+    //     "A versatile button component with multiple color styles designed for smooth interactions and easy integration into any project.",
+    //   tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
+    //   image: tailwis,
+    //   client: false,
+    //   link: "https://vue-setup.vercel.app/",
+    // },
+    // {
+    //   id: 6,
+    //   title: "New Year Countdown Timer",
+    //   description:
+    //     "An interactive countdown timer with real-time updates until the New Year in a vibrant, visually appealing layout.",
+    //   tags: ["HTML", "CSS", "JavaScript"],
+    //   image: countdown,
+    //   client: false,
+    //   link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-colored/New%20Year%20Count%20Down/index.html",
+    // },
   ];
 
   // Skill data
