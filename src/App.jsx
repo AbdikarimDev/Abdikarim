@@ -70,7 +70,7 @@ const Portfolio = () => {
       tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
       image: moshify,
       client: false,
-      link: "https://cabdikariim242.github.io/Moshify/",
+      link: "https://moshify-tau.vercel.app/",
     },
     {
       id: 3,
