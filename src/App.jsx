@@ -13,6 +13,10 @@ import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import image from "./assets/abdikarim.png";
 import system from "./assets/system.png";
+import system2 from "./assets/system2.png";
+import system3 from "./assets/system3.png";
+import todoImage from "./assets/todolist.png";
+import login from "./assets/login.png";
 import view from "./assets/view.png";
 import add from "./assets/add.png";
 import countdown from "./assets/countdown.png";
@@ -20,8 +24,8 @@ import moshify from "./assets/moshify.png";
 import RepairShop from "./assets/Repair Shop.png";
 import tailwis from "./assets/tailwis.png";
 import digitalclock from "./assets/digitalclock.png";
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import 'react-photo-view/dist/react-photo-view.css';
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import "react-image-lightbox/style.css";
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -37,68 +41,78 @@ const Portfolio = () => {
     setLightboxOpen(true);
   };
   // Project data
-const projects = [
-  {
-    id: 1,
-    title: "📊 System Dashboard",
-    description:
-      "A clean, functional dashboard for managing entries and contributions. Features: Metrics overview, Recent Contributions list, User-friendly navigation, Secure Logout. Built for a client using React, Tailwind, and Firebase.",
-    tags: ["React", "Tailwind", "JavaScript", "Firebase"],
-    screenshots: [system, view, add], // 2-3 images for popup
-    client: true,
-    link: "", // no public link
-  },
-  {
-    id: 2,
-    title: "Moshify",
-    description:
-      "A modern, fast, fully responsive landing page showcasing cloud hosting solutions with clean UI and smooth performance.",
-    tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
-    image: moshify,
-    client: false,
-    link: "https://cabdikariim242.github.io/Moshify/",
-  },
-  {
-    id: 3,
-    title: "Repair Shop Management System",
-    description:
-      "Inventory and sales management system designed for small businesses to track services, prices, and customer transactions efficiently.",
-    tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
-    image: RepairShop,
-    client: false,
-    link: "https://calculation-proj.vercel.app/",
-  },
-  {
-    id: 4,
-    title: "Digital Clock Web Application",
-    description:
-      "A sleek, responsive digital clock with real-time updates, designed to display the current time in an intuitive layout.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: digitalclock,
-    client: false,
-    link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-PROJECTS/Digital%20clock/index.html",
-  },
-  {
-    id: 5,
-    title: "Interactive Button Component Design",
-    description:
-      "A versatile button component with multiple color styles designed for smooth interactions and easy integration into any project.",
-    tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
-    image: tailwis,
-    client: false,
-    link: "https://vue-setup.vercel.app/",
-  },
-  {
-    id: 6,
-    title: "New Year Countdown Timer",
-    description:
-      "An interactive countdown timer with real-time updates until the New Year in a vibrant, visually appealing layout.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: countdown,
-    client: false,
-    link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-colored/New%20Year%20Count%20Down/index.html",
-  },
-];
+  const projects = [
+    {
+      id: 1,
+      title: "System Dashboard",
+      description:
+        "A clean, functional dashboard for managing entries and contributions. Features: Metrics overview, Recent Contributions list, User-friendly navigation, Secure Logout. Built for a client using React, Tailwind, and Firebase.",
+      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
+      screenshots: [system2, system3, system], // 2-3 images for popup
+      client: true,
+      link: "", // no public link
+    },
+    {
+      id: 7,
+      title: "🌾 Farm Tracker",
+      description:
+        "A functional farm management system for tracking inventory and expenses. Features include: Add new items with cost and quantity, view all items in a table with filters, edit/delete entries, and calculate total cost. With Dark mode and Also Responsive, Designed for clients using React, Tailwind, and Firebase.",
+      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
+      screenshots: [login, add, view], // 2-3 images for popup
+      client: true,
+      link: "", // no public link
+    },
+    {
+      id: 2,
+      title: "Moshify",
+      description:
+        "A modern, fast, fully responsive landing page showcasing cloud hosting solutions with clean UI and smooth performance.",
+      tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
+      image: moshify,
+      client: false,
+      link: "https://cabdikariim242.github.io/Moshify/",
+    },
+    {
+      id: 3,
+      title: "Repair Shop Management System",
+      description:
+        "Inventory and sales management system designed for small businesses to track services, prices, and customer transactions efficiently.",
+      tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
+      image: RepairShop,
+      client: false,
+      link: "https://calculation-proj.vercel.app/",
+    },
+    {
+      id: 8,
+      title: "Smart ToDo List",
+      description:
+        "A sleek, reactive ToDo List application built with Vue, Pinia, and Tailwind CSS, powered by Firebase for real-time data syncing. Features include task creation, editing, deletion, marking as fav, and persistent storage across devices. Designed for efficiency, usability, and smooth performance.",
+      tags: ["Vue", "Pinia", "Tailwind CSS", "Firebase", "JavaScript"],
+      image: todoImage, // replace with your imported screenshot
+      client: false,
+      link: "https://pinia-todo-list-three.vercel.app/", // replace with the live link
+    },
+    {
+      id: 5,
+      title: "Interactive Button Component Design",
+      description:
+        "A versatile button component with multiple color styles designed for smooth interactions and easy integration into any project.",
+      tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
+      image: tailwis,
+      client: false,
+      link: "https://vue-setup.vercel.app/",
+    },
+    {
+      id: 6,
+      title: "New Year Countdown Timer",
+      description:
+        "An interactive countdown timer with real-time updates until the New Year in a vibrant, visually appealing layout.",
+      tags: ["HTML", "CSS", "JavaScript"],
+      image: countdown,
+      client: false,
+      link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-colored/New%20Year%20Count%20Down/index.html",
+    },
+  ];
 
   // Skill data
   const skills = {
