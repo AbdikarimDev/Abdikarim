@@ -1159,7 +1159,7 @@ const ContactSection = ({ theme }) => {
                 <LinkedinLogo size={32} />
               </a>
               <a
-                href="https://github.com/cabdikariim242/"
+                href="https://github.com/AbdikarimDev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
