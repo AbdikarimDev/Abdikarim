@@ -790,15 +790,30 @@ const Portfolio = () => {
                             {project.description}
                           </p>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                            {project.screenshots.map((img, i) => (
-                              <PhotoView key={i} src={img}>
-                                <img
-                                  src={img}
-                                  alt={`Screenshot ${i + 1} of ${project.title}`}
-                                  className="cursor-pointer w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                                />
-                              </PhotoView>
-                            ))}
+                            {project.screenshots.slice(0, 3).map((img, i) => {
+                              const extraCount = project.screenshots.length - 3;
+                              const isLastVisible = i === 2 && extraCount > 0;
+
+                              return (
+                                <PhotoView key={i} src={img}>
+                                  <div className="relative cursor-pointer">
+                                    <img
+                                      src={img}
+                                      alt={`Screenshot ${i + 1} of ${project.title}`}
+                                      className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                                    />
+
+                                    {isLastVisible && (
+                                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-lg">
+                                        <span className="text-white text-lg font-semibold">
+                                          +{extraCount} more
+                                        </span>
+                                      </div>
+                                    )}
+                                  </div>
+                                </PhotoView>
+                              );
+                            })}
                           </div>
                           <div className="flex flex-wrap gap-2 mt-5 ">
                             {project.tags.map((tag) => (
