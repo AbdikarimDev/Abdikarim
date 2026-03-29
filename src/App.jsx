@@ -19,7 +19,13 @@ import todoImage from "./assets/todolist.png";
 import login from "./assets/login.png";
 import view from "./assets/view.png";
 import add from "./assets/add.png";
-import countdown from "./assets/countdown.png";
+import salad from "./assets/salad.jpg";
+import track from "./assets/track.jpg";
+import name from "./assets/name.jpg";
+import get from "./assets/get.jpg";
+import dash from "./assets/dash.jpg";
+import congr from "./assets/congr.jpg";
+import logo from "./assets/logo.jpg";
 import moshify from "./assets/moshify.png";
 import RepairShop from "./assets/Repair Shop.png";
 import tailwis from "./assets/tailwis.png";
@@ -44,26 +50,37 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: "System Dashboard",
+      title: "Contribution Dashboard",
       description:
         "A clean, functional dashboard for managing entries and contributions. Features: Metrics overview, Recent Contributions list, User-friendly navigation, Secure Logout. Built for a client using React, Tailwind, and Firebase.",
       tags: ["React", "Tailwind", "JavaScript", "Firebase"],
-      screenshots: [system2, system3, system], // 2-3 images for popup
+      screenshots: [system2, system, system3],
       client: true,
-      link: "", // no public link
-    },
-    {
-      id: 7,
-      title: "🌾 Farm Tracker",
-      description:
-        "A functional farm management system for tracking inventory and expenses. Features include: Add new items with cost and quantity, view all items in a table with filters, edit/delete entries, and calculate total cost. With Dark mode and Also Responsive, Designed for clients using React, Tailwind, and Firebase.",
-      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
-      screenshots: [login, add, view], // 2-3 images for popup
-      client: true,
-      link: "", // no public link
+      link: "",
     },
     {
       id: 2,
+      title: "🌾 Farm Tracker",
+      description:
+        "A functional farm management system for tracking inventory and expenses. Features include: Add new items with cost and quantity, view all items in a table with filters, edit/delete entries, and calculate total cost. Dark mode and responsive design included. Built with React, Tailwind, and Firebase.",
+      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
+      screenshots: [login, add, view],
+      client: true,
+      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
+      link: "",
+    },
+    {
+      id: 1,
+      title: "Fruit Salad Combo – Mobile App UI/UX ",
+      description:
+        "This project showcases a complete user flow for a fruit salad combo ordering app, designed to guide users from onboarding to order tracking. The interface focuses on clarity, freshness, and ease of use, reflecting the brand’s promise of delivering the best and freshest fruit salads.",
+      tags: ["React Native", "Tailwind", "TypeScript", "UI/UX Design"],
+      screenshots: [logo, name, get, dash, track, congr],
+      client: true,
+      link: "",
+    },
+    {
+      id: 3,
       title: "Moshify",
       description:
         "A modern, fast, fully responsive landing page showcasing cloud hosting solutions with clean UI and smooth performance.",
@@ -73,7 +90,7 @@ const Portfolio = () => {
       link: "https://moshify-tau.vercel.app/",
     },
     {
-      id: 3,
+      id: 4,
       title: "Repair Shop Management System",
       description:
         "Inventory and sales management system designed for small businesses to track services, prices, and customer transactions efficiently.",
@@ -83,35 +100,15 @@ const Portfolio = () => {
       link: "https://calculation-proj.vercel.app/",
     },
     {
-      id: 8,
+      id: 5,
       title: "Smart ToDo List",
       description:
-        "A sleek, reactive ToDo List application built with Vue, Pinia, and Tailwind CSS, powered by Firebase for real-time data syncing. Features include task creation, editing, deletion, marking as fav, and persistent storage across devices. Designed for efficiency, usability, and smooth performance.",
+        "A sleek, reactive ToDo List application built with Vue, Pinia, and Tailwind CSS, powered by Firebase for real-time data syncing. Features: task creation, editing, deletion, marking as fav, and persistent storage across devices.",
       tags: ["Vue", "Pinia", "Tailwind CSS", "Firebase", "JavaScript"],
-      image: todoImage, // replace with your imported screenshot
+      image: todoImage,
       client: false,
-      link: "https://pinia-todo-list-three.vercel.app/", // replace with the live link
+      link: "https://pinia-todo-list-three.vercel.app/",
     },
-    // {
-    //   id: 5,
-    //   title: "Interactive Button Component Design",
-    //   description:
-    //     "A versatile button component with multiple color styles designed for smooth interactions and easy integration into any project.",
-    //   tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
-    //   image: tailwis,
-    //   client: false,
-    //   link: "https://vue-setup.vercel.app/",
-    // },
-    // {
-    //   id: 6,
-    //   title: "New Year Countdown Timer",
-    //   description:
-    //     "An interactive countdown timer with real-time updates until the New Year in a vibrant, visually appealing layout.",
-    //   tags: ["HTML", "CSS", "JavaScript"],
-    //   image: countdown,
-    //   client: false,
-    //   link: "https://cabdikariim242.github.io/30-HTML-CSS-JS-colored/New%20Year%20Count%20Down/index.html",
-    // },
   ];
 
   // Skill data
@@ -736,7 +733,6 @@ const Portfolio = () => {
                           </a>
                         </div>
                       </div>
-
                       <div className="p-6">
                         <h3 className="text-xl font-bold mb-2">
                           {project.title}
@@ -767,7 +763,7 @@ const Portfolio = () => {
             {/* Projects With Screenshots */}
             <div>
               <h3 className="text-2xl font-semibold mb-6">
-                Client Projects / System Dashboards
+                Advanced Web & Mobile Platforms”
               </h3>
               <PhotoProvider>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -793,7 +789,6 @@ const Portfolio = () => {
                           >
                             {project.description}
                           </p>
-
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                             {project.screenshots.map((img, i) => (
                               <PhotoView key={i} src={img}>
@@ -803,6 +798,16 @@ const Portfolio = () => {
                                   className="cursor-pointer w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
                                 />
                               </PhotoView>
+                            ))}
+                          </div>
+                          <div className="flex flex-wrap gap-2 mt-5 ">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                              >
+                                {tag}
+                              </span>
                             ))}
                           </div>
                         </div>
