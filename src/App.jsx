@@ -32,7 +32,7 @@ import tailwis from "./assets/tailwis.png";
 import digitalclock from "./assets/digitalclock.png";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
-import "react-image-lightbox/style.css";
+ 
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,8 +65,7 @@ const Portfolio = () => {
         "A functional farm management system for tracking inventory and expenses. Features include: Add new items with cost and quantity, view all items in a table with filters, edit/delete entries, and calculate total cost. Dark mode and responsive design included. Built with React, Tailwind, and Firebase.",
       tags: ["React", "Tailwind", "JavaScript", "Firebase"],
       screenshots: [login, add, view],
-      client: true,
-      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
+      client: true, 
       link: "",
     },
     {
