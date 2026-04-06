@@ -27,7 +27,8 @@ import dash from "./assets/dash.jpg";
 import congr from "./assets/congr.jpg";
 import logo from "./assets/logo.jpg";
 import moshify from "./assets/moshify.png";
-import RepairShop from "./assets/Repair Shop.png";
+import abdikarim from "./assets/Me.png";
+import RepairShop from "./assets/RepairShop.png";
 import tailwis from "./assets/tailwis.png";
 import digitalclock from "./assets/digitalclock.png";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -90,10 +91,10 @@ const Portfolio = () => {
     },
     {
       id: 4,
-      title: "Repair Shop Management System",
+      title: "NovaPOS - Modern Point of Sale System",
       description:
-        "Inventory and sales management system designed for small businesses to track services, prices, and customer transactions efficiently.",
-      tags: ["HTML", "CSS", "JavaScript", "Vue", "Tailwind CSS"],
+        "A full-featured POS system built with Vue 3 and Firebase. Perfect for retail businesses, restaurants, and small shops..",
+      tags: ["Firebase", "JavaScript", "Vue", "Tailwind CSS"],
       image: RepairShop,
       client: false,
       link: "https://calculation-proj.vercel.app/",
@@ -312,7 +313,7 @@ const Portfolio = () => {
               <div className="flex justify-center items-center gap-2">
                 <img
                   className="w-14 h-14 border border-blue-500 rounded-full"
-                  src={image}
+                  src={abdikarim}
                   alt=""
                 />
                 <span className="text-blue-500">Abdikarim</span>
