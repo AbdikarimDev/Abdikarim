@@ -35,16 +35,6 @@ I'm a passionate developer focused on building clean, responsive, and user-frien
 * Vite
 
 ---
- 
----
-
-## 📈 What I'm Working On
-
-* Improving frontend performance and scalability
-* Building reusable Vue components
-* Exploring animations and modern UI trends
-
----
 
 ## 📫 Contact Me
 
