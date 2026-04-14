@@ -48,8 +48,8 @@ I'm a passionate developer focused on building clean, responsive, and user-frien
 
 ## 📫 Contact Me
 
-* GitHub: https://github.com/yourusername
-* Email: [your@email.com](mailto:your@email.com)
+* GitHub: https://https://github.com/AbdikarimDev
+* Email: abdikarim.myworks@gmail.com
 
 ---
 
