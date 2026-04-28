@@ -15,6 +15,7 @@ import image from "./assets/abdikarim.png";
 import system from "./assets/system.png";
 import system2 from "./assets/system2.png";
 import system3 from "./assets/system3.png";
+import whiteSpace from "./assets/whiteSpace.png";
 import todoImage from "./assets/todolist.png";
 import login from "./assets/login.png";
 import view from "./assets/view.png";
@@ -88,6 +89,16 @@ const Portfolio = () => {
       image: moshify,
       client: false,
       link: "https://moshify-tau.vercel.app/",
+    },
+    {
+      id: 6,
+      title: "Whitepace – Modern SaaS Landing Page UI",
+      description:
+        "Built a modern, responsive landing page using HTML, Tailwind CSS, and JavaScript. Includes a mobile-friendly navigation toggle, structured sections, and clean UI design optimized for performance and usability.",
+      tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
+      image: whiteSpace,
+      client: false,
+      link: "https://whitespace12.vercel.app/",
     },
     {
       id: 4,
