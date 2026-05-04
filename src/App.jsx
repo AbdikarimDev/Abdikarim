@@ -345,7 +345,7 @@ export default function Portfolio() {
             alt=""
             className="w-8 h-8 rounded-full object-cover border border-yellow-700/40"
           />
-          Abdikarim<span className="text-gold">.</span>
+          Abdikarim
         </div>
 
         {/* Desktop links */}
@@ -422,7 +422,7 @@ export default function Portfolio() {
               >
                 <div className="w-9 h-px bg-yellow-500" />
                 <span className="font-mono text-xs tracking-[0.18em] uppercase text-gold">
-                  Frontend Developer · Mogadishu, Somalia
+                  Frontend Developer 
                 </span>
               </motion.div>
 
@@ -455,7 +455,7 @@ export default function Portfolio() {
                 <strong className="text-[#EDEAE2] font-medium">
                   React, Vue & TypeScript
                 </strong>
-                . Shipping real products for real clients.
+               
               </motion.p>
 
               <motion.div
@@ -605,9 +605,8 @@ export default function Portfolio() {
                   <strong className="text-[#EDEAE2] font-medium">
                     Frontend Developer
                   </strong>{" "}
-                  based in Mogadishu with over a year of hands-on experience
-                  building dashboards, landing pages, and mobile UIs for real
-                  clients.
+                   with over a year of hands-on experience
+                  building dashboards, landing pages, and mobile UIs 
                 </p>
               </FadeUp>
               <FadeUp delay={0.28}>
@@ -941,12 +940,7 @@ export default function Portfolio() {
                       label: "Email",
                       val: "abdikarim.dev01@gmail.com",
                       href: "mailto:abdikarim.dev01@gmail.com",
-                    },
-                    {
-                      icon: <MapPin size={17} />,
-                      label: "Location",
-                      val: "Mogadishu, Somalia",
-                    },
+                    }, 
                     {
                       icon: <GlobeHemisphereEast size={17} />,
                       label: "Status",
@@ -1107,7 +1101,7 @@ export default function Portfolio() {
           Tailwind CSS.
         </p>
         <p className="font-mono text-xs text-zinc-700">
-          Frontend Developer · Mogadishu, Somalia
+          Frontend Developer 
         </p>
       </footer>
     </div>
