@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   EnvelopeSimple,
   MapPin,
@@ -8,1191 +8,1108 @@ import {
   LinkedinLogo,
   GithubLogo,
   TwitterLogo,
+  ArrowUpRight,
+  ArrowRight,
 } from "phosphor-react";
-import toast from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+
+// ─── Asset imports ─────────────────────────────────────────────────────────
 import image from "./assets/abdikarim.png";
 import system from "./assets/system.png";
 import system2 from "./assets/system2.png";
 import system3 from "./assets/system3.png";
 import whiteSpace from "./assets/whiteSpace.png";
 import todoImage from "./assets/todolist.png";
-import login from "./assets/login.png";
-import view from "./assets/view.png";
-import add from "./assets/add.png";
-import salad from "./assets/salad.jpg";
-import track from "./assets/track.jpg";
-import name from "./assets/name.jpg";
-import get from "./assets/get.jpg";
-import dash from "./assets/dash.jpg";
-import congr from "./assets/congr.jpg";
-import logo from "./assets/logo.jpg";
+import loginImg from "./assets/login.png";
+import viewImg from "./assets/view.png";
+import addImg from "./assets/add.png";
+import trackImg from "./assets/track.jpg";
+import nameImg from "./assets/name.jpg";
+import getImg from "./assets/get.jpg";
+import dashImg from "./assets/dash.jpg";
+import congrImg from "./assets/congr.jpg";
+import logoImg from "./assets/logo.jpg";
 import moshify from "./assets/moshify.png";
 import abdikarim from "./assets/Me.png";
 import RepairShop from "./assets/RepairShop.png";
-import tailwis from "./assets/tailwis.png";
-import digitalclock from "./assets/digitalclock.png";
-import { PhotoProvider, PhotoView } from "react-photo-view";
-import "react-photo-view/dist/react-photo-view.css";
- 
-const Portfolio = () => {
-  const [activeSection, setActiveSection] = useState("home");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [theme, setTheme] = useState("dark");
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const canvasRef = useRef(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState("");
 
-  const openLightbox = (img) => {
-    setCurrentImage(img);
-    setLightboxOpen(true);
-  };
-  // Project data
-  const projects = [
-    {
-      id: 1,
-      title: "Contribution Dashboard",
-      description:
-        "A clean, functional dashboard for managing entries and contributions. Features: Metrics overview, Recent Contributions list, User-friendly navigation, Secure Logout. Built for a client using React, Tailwind, and Firebase.",
-      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
-      screenshots: [system2, system, system3],
-      client: true,
-      link: "",
-    },
-    {
-      id: 2,
-      title: "🌾 Farm Tracker",
-      description:
-        "A functional farm management system for tracking inventory and expenses. Features include: Add new items with cost and quantity, view all items in a table with filters, edit/delete entries, and calculate total cost. Dark mode and responsive design included. Built with React, Tailwind, and Firebase.",
-      tags: ["React", "Tailwind", "JavaScript", "Firebase"],
-      screenshots: [login, add, view],
-      client: true, 
-      link: "",
-    },
-    {
-      id: 1,
-      title: "Fruit Salad Combo – Mobile App UI/UX ",
-      description:
-        "This project showcases a complete user flow for a fruit salad combo ordering app, designed to guide users from onboarding to order tracking. The interface focuses on clarity, freshness, and ease of use, reflecting the brand’s promise of delivering the best and freshest fruit salads.",
-      tags: ["React Native", "Tailwind", "TypeScript", "UI/UX Design"],
-      screenshots: [logo, name, get, dash, track, congr],
-      client: true,
-      link: "",
-    },
-    {
-      id: 3,
-      title: "Moshify(Cloning Hostify) – Landing Page",
-      description:
-        "A modern, fast, fully responsive landing page showcasing cloud hosting solutions with clean UI and smooth performance.",
-      tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
-      image: moshify,
-      client: false,
-      link: "https://moshify-tau.vercel.app/",
-    },
-    {
-      id: 6,
-      title: "Whitepace – Modern SaaS Landing Page UI",
-      description:
-        "Built a modern, responsive landing page using HTML, Tailwind CSS, and JavaScript. Includes a mobile-friendly navigation toggle, structured sections, and clean UI design optimized for performance and usability.",
-      tags: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
-      image: whiteSpace,
-      client: false,
-      link: "https://whitespace12.vercel.app/",
-    },
-    {
-      id: 4,
-      title: "NovaPOS - Modern Point of Sale System",
-      description:
-        "A full-featured POS system built with Vue 3 and Firebase. Perfect for retail businesses, restaurants, and small shops..",
-      tags: ["Firebase", "JavaScript", "Vue", "Tailwind CSS"],
-      image: RepairShop,
-      client: false,
-      link: "https://calculation-proj.vercel.app/",
-    },
-    {
-      id: 5,
-      title: "Smart ToDo List",
-      description:
-        "A sleek, reactive ToDo List application built with Vue, Pinia, and Tailwind CSS, powered by Firebase for real-time data syncing. Features: task creation, editing, deletion, marking as fav, and persistent storage across devices.",
-      tags: ["Vue", "Pinia", "Tailwind CSS", "Firebase", "JavaScript"],
-      image: todoImage,
-      client: false,
-      link: "https://pinia-todo-list-three.vercel.app/",
-    },
-  ];
-
-  // Skill data
-  const skills = {
-    frontend: [
-      "Html",
-      "Css",
-      "vue",
-      "Javascript",
-      "React",
-      "TypeScript",
-      "React Native",
-      "Tailwind CSS",
-    ],
-    backend: ["firebase", "laravel"],
-    tools: [
-      "Git",
-      "GitHub",
-      "VS Code",
-      "pinia",
-      "Postman",
-      "Vite",
-      "npm",
-      "Figma",
-      "Netlify",
-      "TablePlus",
-    ],
-  };
-
-  // Handle scroll to section
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(sectionId);
-      setIsMenuOpen(false);
-    }
-  };
-
-  // Handle mouse movement for parallax effects
+// ─── Google Fonts injected once ────────────────────────────────────────────
+const FontLoader = () => {
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+    const link = document.createElement("link");
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // Custom cursor + scrollbar + selection styles
+    const style = document.createElement("style");
+    style.textContent = `
+      html { scroll-behavior: smooth; }
+      body { cursor: none; overflow-x: hidden; }
+      ::-webkit-scrollbar { width: 2px; }
+      ::-webkit-scrollbar-track { background: #09090e; }
+      ::-webkit-scrollbar-thumb { background: #6b5320; border-radius: 1px; }
+      ::selection { background: #C9A84C; color: #09090e; }
+      .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; }
+      .font-mono { font-family: 'DM Mono', monospace; }
+      .font-body { font-family: 'DM Sans', sans-serif; }
+      .text-gold { color: #C9A84C; }
+      .border-gold { border-color: #C9A84C; }
+      .bg-gold { background-color: #C9A84C; }
+      .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 11vw, 148px); line-height: 0.9; letter-spacing: 0.02em; }
+      .hero-outline { -webkit-text-stroke: 1px #EDEAE2; color: transparent; }
+      .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 88px); line-height: 0.92; }
+      .project-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 4vw, 52px); line-height: 0.95; }
+      .cursor-dot { width: 7px; height: 7px; background: #C9A84C; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9990; transform: translate(-50%, -50%); }
+      .cursor-ring { width: 34px; height: 34px; border: 1px solid rgba(201,168,76,0.55); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9989; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s; }
+      .cursor-ring.big { width: 52px; height: 52px; background: rgba(201,168,76,0.07); border-color: #C9A84C; }
+      .noise-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.35; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); }
+      .skill-tile:hover .skill-hover-bg { transform: translateY(0); }
+      .skill-hover-bg { transform: translateY(100%); transition: transform 0.3s ease; }
+      .hero-frame::before { content: ''; position: absolute; top: -1px; right: -1px; width: 55%; height: 55%; border-top: 1px solid #C9A84C; border-right: 1px solid #C9A84C; z-index: 2; pointer-events: none; }
+      .hero-frame::after { content: ''; position: absolute; bottom: -1px; left: -1px; width: 55%; height: 55%; border-bottom: 1px solid #C9A84C; border-left: 1px solid #C9A84C; z-index: 2; pointer-events: none; }
+      .project-card-line::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: #C9A84C; transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+      .project-card-line:hover::after { transform: scaleX(1); }
+      .form-field input:focus ~ label, .form-field input:not(:placeholder-shown) ~ label,
+      .form-field textarea:focus ~ label, .form-field textarea:not(:placeholder-shown) ~ label { top: 8px; font-size: 9px; color: #C9A84C; }
+      .form-field::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: #C9A84C; transform: scaleX(0); transition: transform 0.3s ease; }
+      .form-field:focus-within::after { transform: scaleX(1); }
+      .marquee-track { animation: marquee 28s linear infinite; white-space: nowrap; display: flex; }
+      .marquee-track:hover { animation-play-state: paused; }
+      @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, #C9A84C, transparent); animation: spulse 2s ease-in-out infinite; }
+      @keyframes spulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+      .about-img-label { position: absolute; top: 24px; left: -28px; background: #C9A84C; color: #09090e; padding: 8px 13px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'DM Mono', monospace; }
+      .contact-h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 108px); line-height: 0.9; }
+      @media (max-width: 768px) { .about-img-label { display: none; } }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
     };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+  return null;
+};
 
-  // Setup canvas for interactive background
+// ─── Cursor ────────────────────────────────────────────────────────────────
+const Cursor = () => {
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+  const mouse = useRef({ x: 0, y: 0 });
+  const ringPos = useRef({ x: 0, y: 0 });
+  const [big, setBig] = useState(false);
+  const rafRef = useRef(null);
+
   useEffect(() => {
-    if (canvasRef.current && theme === "dark") {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      let particles = [];
-      const particleCount = 100;
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.size = Math.random() * 2 + 1;
-          this.speedX = Math.random() * 1 - 0.5;
-          this.speedY = Math.random() * 1 - 0.5;
-        }
-
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-
-          if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-          if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-        }
-
-        draw() {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      const createParticles = () => {
-        for (let i = 0; i < particleCount; i++) {
-          particles.push(new Particle());
-        }
-      };
-
-      const animate = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].update();
-          particles[i].draw();
-
-          // Connect particles with lines
-          for (let j = i; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 100) {
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance / 1000})`;
-              ctx.lineWidth = 0.5;
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(animate);
-      };
-
-      createParticles();
-      animate();
-
-      const handleResize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [theme]);
-
-  // Handle scroll and set active section
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
-      const scrollPosition = window.scrollY + 200;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section);
-            break;
-          }
-        }
+    const onMove = (e) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      if (dotRef.current) {
+        dotRef.current.style.left = e.clientX + "px";
+        dotRef.current.style.top = e.clientY + "px";
       }
     };
+    window.addEventListener("mousemove", onMove);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const tick = () => {
+      ringPos.current.x = lerp(ringPos.current.x, mouse.current.x, 0.1);
+      ringPos.current.y = lerp(ringPos.current.y, mouse.current.y, 0.1);
+      if (ringRef.current) {
+        ringRef.current.style.left = ringPos.current.x + "px";
+        ringRef.current.style.top = ringPos.current.y + "px";
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    tick();
+
+    const onEnter = () => setBig(true);
+    const onLeave = () => setBig(false);
+    const targets = document.querySelectorAll(
+      "a,button,.skill-tile,.project-card-line",
+    );
+    targets.forEach((el) => {
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
+    });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
-
-  // Toggle theme between dark and light
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <>
-      <div
-        className={`min-h-screen ${
-          theme === "dark"
-            ? "bg-gray-900 text-white"
-            : "bg-gray-50 text-gray-900"
-        } transition-colors duration-500 overflow-hidden`}
-      >
-        {/* Animated background */}
-        {theme === "dark" && (
-          <canvas
-            ref={canvasRef}
-            className="fixed top-0 left-0 w-full h-full opacity-30 pointer-events-none z-0"
-          />
-        )}
-        {/* Custom cursor effect */}
-        <div
-          className="fixed w-6 h-6 rounded-full border border-blue-500 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 z-50 transition-transform duration-100 ease-out"
-          style={{ left: cursorPosition.x, top: cursorPosition.y }}
-        />
-        <div
-          className="fixed w-2 h-2 rounded-full bg-blue-500 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 z-50 transition-transform duration-300 ease-out"
-          style={{ left: cursorPosition.x, top: cursorPosition.y }}
-        />
-        {/* Navigation */}
-        <nav
-          className={`fixed w-full py-4 px-6 z-40 backdrop-blur-md ${
-            theme === "dark" ? "bg-black/30" : "bg-white/80"
-          } border-b ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`}
-        >
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="font-bold text-xl"
-            >
-              <div className="flex justify-center items-center gap-2">
-                <img
-                  className="w-14 h-14 border border-blue-500 rounded-full"
-                  src={abdikarim}
-                  alt=""
-                />
-                <span className="text-blue-500">Abdikarim</span>
-              </div>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-8">
-              {["home", "about", "skills", "projects", "contact"].map(
-                (item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`relative py-2 px-1 font-medium transition-all duration-300 ${
-                      activeSection === item
-                        ? "text-blue-500"
-                        : "hover:text-blue-400"
-                    }`}
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                    {activeSection === item && (
-                      <motion.div
-                        layoutId="activeSection"
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500"
-                      />
-                    )}
-                  </button>
-                ),
-              )}
-            </div>
-
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full ${
-                theme === "dark" ? "bg-gray-800" : "bg-gray-200"
-              }`}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? "🌙" : "☀️"}
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <div
-                className={`w-6 h-0.5 ${
-                  theme === "dark" ? "bg-white" : "bg-gray-900"
-                } transition-all duration-300 ${
-                  isMenuOpen ? "transform rotate-45 translate-y-1.5" : ""
-                }`}
-              />
-              <div
-                className={`w-6 h-0.5 ${
-                  theme === "dark" ? "bg-white" : "bg-gray-900"
-                } my-1.5 transition-all duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <div
-                className={`w-6 h-0.5 ${
-                  theme === "dark" ? "bg-white" : "bg-gray-900"
-                } transition-all duration-300 ${
-                  isMenuOpen ? "transform -rotate-45 -translate-y-1.5" : ""
-                }`}
-              />
-            </button>
-          </div>
-        </nav>
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className={`fixed top-16 left-0 right-0 z-30 md:hidden ${
-                theme === "dark" ? "bg-gray-800" : "bg-white"
-              } shadow-lg`}
-            >
-              <div className="flex flex-col p-4 space-y-4">
-                {["home", "about", "skills", "projects", "contact"].map(
-                  (item) => (
-                    <button
-                      key={item}
-                      onClick={() => scrollToSection(item)}
-                      className={`py-3 px-4 text-left rounded-lg transition-all duration-300 ${
-                        activeSection === item
-                          ? theme === "dark"
-                            ? "bg-blue-900 text-blue-100"
-                            : "bg-blue-100 text-blue-900"
-                          : theme === "dark"
-                            ? "hover:bg-gray-700"
-                            : "hover:bg-gray-100"
-                      }`}
-                    >
-                      {item.charAt(0).toUpperCase() + item.slice(1)}
-                    </button>
-                  ),
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        {/* Hero Section */}
-        <section
-          id="home"
-          className="min-h-screen flex items-center justify-center relative overflow-hidden"
-        >
-          <div className="absolute inset-0 z-0 opacity-20">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob" />
-            <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000" />
-            <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000" />
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 z-10 text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
-            >
-              Creative <span className="text-blue-500">Developer</span> &<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-                Digital Designer
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto"
-            >
-              I build innovative digital experiences that blend cutting-edge
-              technology with beautiful design
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"
-            >
-              <button
-                onClick={() => scrollToSection("projects")}
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors duration-300 shadow-lg"
-              >
-                View My Work
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="px-8 py-3 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full font-medium transition-all duration-300"
-              >
-                Get In Touch
-              </button>
-            </motion.div>
-          </div>
-
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="p-2 rounded-full border"
-              aria-label="Scroll down"
-            >
-              ↓
-            </button>
-          </div>
-        </section>
-        {/* About Section */}
-        <section id="about" className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-center mb-16"
-            >
-              About <span className="text-blue-500">Me</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div
-                  className={`rounded-lg overflow-hidden shadow-xl ${
-                    theme === "dark"
-                      ? "ring-1 ring-gray-800"
-                      : "ring-1 ring-gray-200"
-                  }`}
-                >
-                  <img
-                    src={image}
-                    alt="Professional developer working in a modern office environment"
-                    className="w-full h-auto"
-                  />
-                </div>
-
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-center p-4 shadow-lg">
-                  1+ Years Experience
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="text-2xl font-bold mb-6">
-                  Crafting Digital Excellence
-                </h3>
-                <p className="text-lg mb-6">
-                  I'm a dedicated Front-End developer and UI/UX designer with
-                  over a year of hands-on experience building responsive,
-                  user-focused web applications, dashboards, and landing pages.
-                  I work across the stack — front-end with HTML, CSS,
-                  JavaScript, Vue, React, TypeScript, TailwindCSS; and back-end
-                  powered by Firebasen And Laravel — focusing on clean,
-                  maintainable code and polished interfaces.
-                </p>
-                <p className="text-lg mb-8">
-                  I turn ideas into fully functional products, combining
-                  technical problem-solving with practical design thinking. I
-                  enjoy improving usability, iterating from feedback, and
-                  shipping solutions that are simple, effective, and visually
-                  appealing. I’ve collaborated with teams and worked on projects
-                  for clients, building mobile apps with React Native,
-                  interactive dashboards, and landing pages. Always learning and
-                  open to new opportunities.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div
-                    className={`p-4 rounded-lg ${
-                      theme === "dark" ? "bg-gray-800" : "bg-gray-100"
-                    }`}
-                  >
-                    <div className="text-3xl font-bold text-blue-500">50+</div>
-                    <div className="text-sm">Projects Completed</div>
-                  </div>
-
-                  <div
-                    className={`p-4 rounded-lg ${
-                      theme === "dark" ? "bg-gray-800" : "bg-gray-100"
-                    }`}
-                  >
-                    <div className="text-3xl font-bold text-blue-500">1+</div>
-                    <div className="text-sm">Years Experience</div>
-                  </div>
-                  <div
-                    className={`p-4 rounded-lg ${
-                      theme === "dark" ? "bg-gray-800" : "bg-gray-100"
-                    }`}
-                  >
-                    <div className="text-3xl font-bold text-blue-500">15+</div>
-                    <div className="text-sm">Technologies Mastered</div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            success: {
-              style: {
-                background:
-                  "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6)",
-                color: "#fff",
-                borderRadius: "12px",
-                fontWeight: "600",
-              },
-            },
-            error: {
-              style: {
-                background: "#ef4444",
-                color: "#fff",
-                borderRadius: "12px",
-                padding: "12px 16px",
-                fontWeight: "600",
-              },
-            },
-          }}
-        />
-        ,{/* Skills Section */}
-        <section
-          id="skills"
-          className="py-20 px-6 bg-gradient-to-r from-blue-900 to-purple-900 text-white"
-        >
-          <div className="max-w-7xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-center mb-16"
-            >
-              My <span className="text-blue-400">Skills</span>
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {Object.entries(skills).map(([category, items], index) => (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className={`p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/10`}
-                >
-                  <h3 className="text-xl font-bold mb-6 text-blue-300 capitalize">
-                    {category} Stack
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {items.map((skill) => (
-                      <div key={skill} className="flex items-center">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-3" />
-                        <span>{skill}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="mt-16 bg-black/20 p-8 rounded-xl border border-white/10"
-            >
-              <h3 className="text-2xl font-bold mb-6 text-center">
-                My Approach
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center p-6 bg-white/5 rounded-lg">
-                  <div className="text-4xl mb-4">🎨</div>
-                  <h4 className="font-bold mb-2">Design First</h4>
-                  <p className="text-sm">
-                    Creating intuitive, beautiful interfaces that prioritize
-                    user experience
-                  </p>
-                </div>
-                <div className="text-center p-6 bg-white/5 rounded-lg">
-                  <div className="text-4xl mb-4">⚡</div>
-                  <h4 className="font-bold mb-2">Performance</h4>
-                  <p className="text-sm">
-                    Optimizing for speed and efficiency across all devices and
-                    platforms
-                  </p>
-                </div>
-                <div className="text-center p-6 bg-white/5 rounded-lg">
-                  <div className="text-4xl mb-4">🔒</div>
-                  <h4 className="font-bold mb-2">Security</h4>
-                  <p className="text-sm">
-                    Implementing robust security practices to protect user data
-                    and privacy
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-        {/* Projects Section */}
-        <section id="projects" className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            {/* Section Title */}
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              Featured <span className="text-blue-500">Projects</span>
-            </h2>
-            <p className="text-center text-lg mb-16 max-w-3xl mx-auto">
-              A selection of my recent work that showcases my skills and
-              creative approach to problem solving
-            </p>
-
-            {/* Projects With Links */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-semibold mb-6">
-                Web Projects / Landing Pages
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projects
-                  .filter((p) => p.link && !p.screenshots)
-                  .map((project) => (
-                    <div
-                      key={project.id}
-                      className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
-                        theme === "dark" ? "bg-gray-800" : "bg-white"
-                      }`}
-                    >
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={`Screenshot of ${project.title}`}
-                          className="w-full h-48 object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/70 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            className="px-4 py-2 bg-blue-600 text-white rounded-full font-medium"
-                          >
-                            View Project
-                          </a>
-                        </div>
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2">
-                          {project.title}
-                        </h3>
-                        <p
-                          className={
-                            theme === "dark" ? "text-gray-300" : "text-gray-600"
-                          }
-                        >
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            {/* Projects With Screenshots */}
-            <div>
-              <h3 className="text-2xl font-semibold mb-6">
-                Advanced Web & Mobile Platforms”
-              </h3>
-              <PhotoProvider>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects
-                    .filter((p) => p.screenshots)
-                    .map((project) => (
-                      <div
-                        key={project.id}
-                        className={`rounded-xl overflow-hidden shadow-lg ${
-                          theme === "dark" ? "bg-gray-800" : "bg-white"
-                        }`}
-                      >
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold mb-4">
-                            {project.title}
-                          </h3>
-                          <p
-                            className={
-                              theme === "dark"
-                                ? "text-gray-300"
-                                : "text-gray-600"
-                            }
-                          >
-                            {project.description}
-                          </p>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                            {project.screenshots.slice(0, 3).map((img, i) => {
-                              const extraCount = project.screenshots.length - 3;
-                              const isLastVisible = i === 2 && extraCount > 0;
-
-                              return (
-                                <PhotoView key={i} src={img}>
-                                  <div className="relative cursor-pointer">
-                                    <img
-                                      src={img}
-                                      alt={`Screenshot ${i + 1} of ${project.title}`}
-                                      className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                                    />
-
-                                    {isLastVisible && (
-                                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-lg">
-                                        <span className="text-white text-lg font-semibold">
-                                          +{extraCount} more
-                                        </span>
-                                      </div>
-                                    )}
-                                  </div>
-                                </PhotoView>
-                              );
-                            })}
-                          </div>
-                          <div className="flex flex-wrap gap-2 mt-5 ">
-                            {project.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </PhotoProvider>
-            </div>
-          </div>
-        </section>
-        {/* Contact Section */}
-        <ContactSection />
-        {/* Footer */}
-        <footer
-          className={`py-8 px-6 text-center ${
-            theme === "dark" ? "bg-gray-900" : "bg-gray-100"
-          } border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`}
-        >
-          <p>
-            © {new Date().getFullYear()} [Abdikarim]. All rights reserved. |My
-            Portfolio. Designed and built with ❤️
-          </p>
-        </footer>
-      </div>
+      <div ref={dotRef} className="cursor-dot" />
+      <div ref={ringRef} className={`cursor-ring ${big ? "big" : ""}`} />
     </>
   );
 };
 
-//ANOTHER
-
-const InteractiveBlobs = () => {
-  const svgRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  // Track mouse position relative to SVG container
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!svgRef.current) return;
-      const rect = svgRef.current.getBoundingClientRect();
-      setMousePos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Calculate blob positions with lag effect
-  // We'll use simple easing to move blobs toward mousePos
-  const [blobPositions, setBlobPositions] = useState([
-    { x: 100, y: 100 },
-    { x: 300, y: 200 },
-    { x: 500, y: 150 },
-  ]);
-
-  useEffect(() => {
-    let animationFrame;
-    const ease = 0.1;
-
-    const animate = () => {
-      setBlobPositions((prev) =>
-        prev.map(({ x, y }) => ({
-          x: x + (mousePos.x - x) * ease,
-          y: y + (mousePos.y - y) * ease,
-        })),
-      );
-      animationFrame = requestAnimationFrame(animate);
-    };
-    animate();
-    return () => cancelAnimationFrame(animationFrame);
-  }, [mousePos]);
-
+// ─── Fade-up wrapper ────────────────────────────────────────────────────────
+const FadeUp = ({ children, delay = 0, className = "" }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <svg
-      ref={svgRef}
-      className="absolute inset-0 w-full h-full -z-10"
-      viewBox="0 0 600 400"
-      preserveAspectRatio="xMidYMid meet"
-      xmlns="http://www.w3.org/2000/svg"
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
     >
-      <defs>
-        <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="40" />
-        </filter>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ff6ec4" />
-          <stop offset="100%" stopColor="#7873f5" />
-        </linearGradient>
-        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#42e695" />
-          <stop offset="100%" stopColor="#3bb2b8" />
-        </linearGradient>
-        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#fddb92" />
-          <stop offset="100%" stopColor="#d1fdff" />
-        </linearGradient>
-      </defs>
-
-      {/* Blob 1 */}
-      <motion.path
-        animate={{
-          d: [
-            "M120,100 Q150,130 180,100 T240,100 Q270,70 300,100 T360,100 Q390,130 420,100 T480,100 Q510,70 540,100 T600,100 L600 400 L0 400 L0 100 Z",
-            "M120,110 Q150,90 180,110 T240,110 Q270,140 300,110 T360,110 Q390,90 420,110 T480,110 Q510,140 540,110 T600,110 L600 400 L0 400 L0 110 Z",
-            "M120,100 Q150,130 180,100 T240,100 Q270,70 300,100 T360,100 Q390,130 420,100 T480,100 Q510,70 540,100 T600,100 L600 400 L0 400 L0 100 Z",
-          ],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        fill="url(#grad1)"
-        filter="url(#blur)"
-        style={{
-          transform: `translate(${blobPositions[0].x / 15}px, ${blobPositions[0].y / 15}px)`,
-        }}
-      />
-
-      {/* Blob 2 */}
-      <motion.circle
-        cx={blobPositions[1].x}
-        cy={blobPositions[1].y}
-        r="120"
-        fill="url(#grad2)"
-        filter="url(#blur)"
-        animate={{
-          r: [110, 130, 110],
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Blob 3 */}
-      <motion.ellipse
-        cx={blobPositions[2].x}
-        cy={blobPositions[2].y}
-        rx="140"
-        ry="90"
-        fill="url(#grad3)"
-        filter="url(#blur)"
-        animate={{
-          rx: [130, 150, 130],
-          ry: [80, 100, 80],
-        }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </svg>
+      {children}
+    </motion.div>
   );
 };
 
-const ContactSection = ({ theme }) => {
-  const form = useRef();
+// ─── Section label ──────────────────────────────────────────────────────────
+const SectionLabel = ({ num, text }) => (
+  <div className="flex items-center gap-3 mb-5">
+    <span className="font-mono text-xs text-gold">{num}</span>
+    <div className="w-10 h-px bg-yellow-700/40" />
+    <span className="font-mono text-xs tracking-widest uppercase text-zinc-600">
+      {text}
+    </span>
+  </div>
+);
+
+// ─── Data ──────────────────────────────────────────────────────────────────
+const SKILLS = [
+  { name: "React", cat: "Frontend" },
+  { name: "Vue 3", cat: "Frontend" },
+  { name: "TypeScript", cat: "Language" },
+  { name: "JavaScript", cat: "Language" },
+  { name: "Tailwind CSS", cat: "Styling" },
+  { name: "React Native", cat: "Mobile" },
+  { name: "HTML / CSS", cat: "Foundation" },
+  { name: "Firebase", cat: "Backend" },
+  { name: "Laravel", cat: "Backend" },
+  { name: "Pinia", cat: "State" },
+  { name: "Figma", cat: "Design" },
+  { name: "Git / GitHub", cat: "Tools" },
+  { name: "Vite", cat: "Build" },
+  { name: "Postman", cat: "Tools" },
+];
+
+const FEATURED = [
+  {
+    id: 1,
+    num: "01",
+    title: "Client Dashboard",
+    sub: "Metrics & Contributions Manager",
+    desc: "Built for a client — full CRUD dashboard for tracking user contributions with real-time Firebase sync. Metrics overview, filterable history, and secure authentication.",
+    tags: ["React", "Firebase", "Tailwind CSS", "JavaScript"],
+    shots: [system2, system, system3],
+  },
+  {
+    id: 2,
+    num: "02",
+    title: "DailyTrack",
+    sub: "Expense & Inventory System",
+    desc: "Business tool for tracking daily expenses and inventory in real time. Full CRUD with filters, edit/delete, live cost totals, dark mode, and responsive design.",
+    tags: ["React", "Firebase", "Tailwind CSS", "JavaScript"],
+    shots: [loginImg, addImg, viewImg],
+  },
+  {
+    id: 3,
+    num: "03",
+    title: "FreshBowl",
+    sub: "Mobile App UI/UX — React Native",
+    desc: "End-to-end mobile UI for a food ordering app — onboarding, browsing, checkout, and order tracking. Designed for clarity and conversion.",
+    tags: ["React Native", "TypeScript", "Tailwind CSS", "Figma"],
+    shots: [logoImg, nameImg, getImg, dashImg, trackImg, congrImg],
+  },
+];
+
+const PUBLIC_PROJECTS = [
+  {
+    id: 4,
+    num: "04",
+    title: "NovaPOS",
+    sub: "Point of Sale System",
+    desc: "Full-featured browser-based POS for retail and restaurants — product catalog, cart, transaction history, and Firebase real-time sync.",
+    tags: ["Vue 3", "Firebase", "Tailwind CSS"],
+    img: RepairShop,
+    link: "https://calculation-proj.vercel.app/",
+  },
+  {
+    id: 5,
+    num: "05",
+    title: "TaskFlow",
+    sub: "Real-Time Task Manager",
+    desc: "Reactive task manager with persistent cross-device storage, favorites, and instant updates. Demonstrates Pinia state management at scale.",
+    tags: ["Vue 3", "Pinia", "Firebase", "Tailwind CSS"],
+    img: todoImage,
+    link: "https://pinia-todo-list-three.vercel.app/",
+  },
+  {
+    id: 6,
+    num: "06",
+    title: "Moshify",
+    sub: "SaaS Landing Page",
+    desc: "Production-level rebuild of a cloud hosting landing page. Responsive layout, clean Tailwind structure, and performance-focused delivery.",
+    tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
+    img: moshify,
+    link: "https://moshify-tau.vercel.app/",
+  },
+  {
+    id: 7,
+    num: "07",
+    title: "Whitepace",
+    sub: "SaaS Landing Page UI",
+    desc: "Modern, responsive marketing page with mobile nav toggle, structured content sections, and performance-optimized layout.",
+    tags: ["HTML", "CSS", "Tailwind CSS", "JavaScript"],
+    img: whiteSpace,
+    link: "https://whitespace12.vercel.app/",
+  },
+];
+
+const NAV_ITEMS = ["home", "about", "skills", "projects", "contact"];
+
+// ─── Portfolio ─────────────────────────────────────────────────────────────
+export default function Portfolio() {
+  const [active, setActive] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const formRef = useRef();
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const y = window.scrollY + 130;
+      for (const id of NAV_ITEMS) {
+        const el = document.getElementById(id);
+        if (el && y >= el.offsetTop && y < el.offsetTop + el.offsetHeight) {
+          setActive(id);
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
-        "service_xgiqm6j", // replace with your EmailJS service ID
-        "template_3ooghfz", // replace with your EmailJS template ID
-        form.current,
-        "kr4s2Oa78VlQNVqCR", // replace with your EmailJS public key
+        "service_xgiqm6j",
+        "template_3ooghfz",
+        formRef.current,
+        "kr4s2Oa78VlQNVqCR",
       )
-      .then(
-        () => {
-          toast.success("Message sent successfully! ✅");
-          form.current.reset();
-        },
-        (error) => {
-          toast.error("Failed to send message ❌");
-          console.error(error.text);
-        },
-      );
+      .then(() => {
+        toast.success("Message sent!");
+        formRef.current.reset();
+      })
+      .catch(() => toast.error("Failed to send."));
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-24 px-6 overflow-hidden min-h-screen flex items-center"
-    >
-      <InteractiveBlobs />
+    <div className="font-body bg-[#09090E] text-[#EDEAE2] min-h-screen overflow-x-hidden flex flex-col gap-10">
+      <FontLoader />
+      <Cursor />
+      <div className="noise-overlay" />
 
-      <div className="max-w-4xl mx-auto relative z-10 w-full">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-extrabold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600"
-        >
-          Get In <span className="text-pink-500">Touch</span>
-        </motion.h2>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: "#13131e",
+            color: "#EDEAE2",
+            border: "1px solid rgba(201,168,76,0.25)",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: "14px",
+          },
+        }}
+      />
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-          viewport={{ once: true }}
-          className="text-center text-lg md:text-xl max-w-3xl mx-auto mb-16 text-gray-900 dark:text-gray-200"
-        >
-          Have a project in mind or want to discuss potential opportunities? I'd
-          love to hear from you!
-        </motion.p>
+      {/* ── NAV ──────────────────────────────────────────────────────────── */}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-12 
+          border-b border-white/[0.055] backdrop-blur-2xl transition-all duration-300
+          bg-[#09090e]/80
+          ${scrolled ? "py-3" : "py-5"}
+          max-md:px-5`}
+      >
+        <div className="font-display text-xl tracking-widest flex items-center gap-2.5 text-[#EDEAE2]">
+          <img
+            src={abdikarim}
+            alt=""
+            className="w-8 h-8 rounded-full object-cover border border-yellow-700/40"
+          />
+          Abdikarim<span className="text-gold">.</span>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
-          viewport={{ once: true }}
-          className={`rounded-3xl p-10 shadow-2xl backdrop-blur-xl border border-white/20 bg-white/70 dark:bg-gray-900/70`}
+        {/* Desktop links */}
+        <ul className="hidden md:flex gap-8 list-none">
+          {NAV_ITEMS.map((item) => (
+            <li key={item}>
+              <button
+                onClick={() => scrollTo(item)}
+                className={`font-mono text-xs tracking-widest uppercase relative pb-1 transition-colors duration-200 cursor-none
+                  ${active === item ? "text-[#EDEAE2]" : "text-zinc-500 hover:text-[#EDEAE2]"}`}
+              >
+                {item}
+                <span
+                  className={`absolute bottom-0 left-0 right-0 h-px bg-yellow-500 transition-transform duration-300 origin-left
+                    ${active === item ? "scale-x-100" : "scale-x-0"}`}
+                />
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        {/* Hamburger */}
+        <button
+          className={`md:hidden flex flex-col gap-[5px] bg-transparent border-none cursor-none p-1 ham ${menuOpen ? "x" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
         >
-          <form ref={form} onSubmit={sendEmail} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-semibold mb-2 text-gray-900 dark:text-gray-200"
+          <span className="block w-[22px] h-[1.5px] bg-[#EDEAE2] transition-all duration-300" />
+          <span className="block w-[22px] h-[1.5px] bg-[#EDEAE2] transition-all duration-300" />
+          <span className="block w-[22px] h-[1.5px] bg-[#EDEAE2] transition-all duration-300" />
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 bg-[#09090e] z-40 flex flex-col items-center justify-center gap-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {NAV_ITEMS.map((item, i) => (
+              <motion.button
+                key={item}
+                onClick={() => scrollTo(item)}
+                className="font-display text-5xl tracking-wide text-zinc-500 hover:text-gold transition-colors duration-200 cursor-none bg-transparent border-none"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.07 }}
+              >
+                {item.toUpperCase()}
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      <section
+        id="home"
+        className="min-h-screen flex items-center relative overflow-hidden pt-20"
+      >
+        <div className="max-w-[1200px] mx-auto px-12 w-full max-md:px-5">
+          <div className="grid grid-cols-[1fr_380px] gap-20 items-center max-lg:grid-cols-1 max-lg:gap-14">
+            {/* Left */}
+            <div>
+              <motion.div
+                className="flex items-center gap-3 mb-6"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="w-9 h-px bg-yellow-500" />
+                <span className="font-mono text-xs tracking-[0.18em] uppercase text-gold">
+                  Frontend Developer · Mogadishu, Somalia
+                </span>
+              </motion.div>
+
+              <motion.h1
+                className="hero-title mb-7"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.85,
+                  delay: 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <span className="hero-outline block">Building</span>
+                <span className="block text-[#EDEAE2]">Digital</span>
+                <span className="block text-gold">Products</span>
+              </motion.h1>
+
+              <motion.p
+                className="text-[17px] font-light text-zinc-400 max-w-[430px] leading-[1.75] mb-11"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.25 }}
+              >
+                I'm{" "}
+                <strong className="text-[#EDEAE2] font-medium">
+                  Abdikarim
+                </strong>{" "}
+                — turning ideas into fast, responsive web apps with{" "}
+                <strong className="text-[#EDEAE2] font-medium">
+                  React, Vue & TypeScript
+                </strong>
+                . Shipping real products for real clients.
+              </motion.p>
+
+              <motion.div
+                className="flex gap-3 flex-wrap"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.38 }}
+              >
+                <button
+                  onClick={() => scrollTo("projects")}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-yellow-500 hover:bg-yellow-400 text-[#09090e] text-xs font-semibold tracking-widest uppercase border-none cursor-none transition-all duration-200 hover:-translate-y-0.5"
                 >
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="from_name"
-                  className="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-pink-400 transition"
-                  placeholder="Enter your name"
-                  required
+                  View Work <ArrowRight size={13} weight="bold" />
+                </button>
+                <button
+                  onClick={() => scrollTo("contact")}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-yellow-500/60 text-[#EDEAE2] hover:text-gold text-xs font-medium tracking-widest uppercase cursor-none transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  Get In Touch
+                </button>
+              </motion.div>
+            </div>
+
+            {/* Right — photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <div className="hero-frame relative overflow-hidden">
+                <img
+                  src={image}
+                  alt="Abdikarim — Frontend Developer"
+                  className="w-full object-cover block transition-all duration-500 hover:scale-[1.02]"
+                  style={{ height: 480, filter: "grayscale(15%)" }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.filter = "grayscale(0%)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.style.filter = "grayscale(15%)")
+                  }
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold mb-2 text-gray-900 dark:text-gray-200"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="from_email"
-                  className="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-pink-400 transition"
-                  placeholder="Enter your email"
-                  required
-                />
+              {/* Stats below photo */}
+              <div
+                className="grid grid-cols-2 mt-[1px]"
+                style={{ gap: "1px", background: "rgba(255,255,255,0.055)" }}
+              >
+                {[
+                  { num: "10+", label: "Projects Built" },
+                  { num: "1+", label: "Years Experience" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-[#09090e] px-5 py-5">
+                    <div className="font-display text-4xl text-gold leading-none">
+                      {s.num}
+                    </div>
+                    <div className="font-mono text-[11px] text-zinc-600 mt-1 tracking-wide">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
+            </motion.div>
+          </div>
+        </div>
 
-            <div>
-              <label
-                htmlFor="subject"
-                className="block text-sm font-semibold mb-2 text-gray-900 dark:text-gray-200"
-              >
-                Subject
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                className="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-pink-400 transition"
-                placeholder="What is this regarding?"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold mb-2 text-gray-900 dark:text-gray-200"
-              >
-                Your Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={6}
-                className="w-full px-5 py-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-pink-400 transition resize-none"
-                placeholder="Tell me about your project..."
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-4 bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 hover:from-blue-600 hover:via-purple-600 hover:to-pink-500 text-white font-extrabold rounded-xl shadow-lg transition-transform transform hover:scale-105"
-            >
-              Send Message
-            </button>
-          </form>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16"
+        {/* Decorative big text BG */}
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 font-display pointer-events-none select-none"
+          style={{
+            fontSize: "clamp(180px, 25vw, 320px)",
+            color: "rgba(255,255,255,0.012)",
+            lineHeight: 1,
+          }}
         >
-          {/* Email */}
-          <div className="p-8 rounded-2xl text-center shadow-xl border border-white/20 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 flex flex-col items-center space-y-4">
-            <EnvelopeSimple size={48} className="text-pink-500" />
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              Email
-            </h3>
-            <a
-              href="mailto:abdikarim.dev01@gmail.com"
-              className="text-pink-600 hover:text-pink-800 font-semibold transition"
+          DEV
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <div className="scroll-line" />
+        </div>
+      </section>
+
+      {/* ── MARQUEE ──────────────────────────────────────────────────────── */}
+      <div className="border-t border-b border-white/[0.055] bg-[#0e0e16] py-5 overflow-hidden">
+        <div className="marquee-track">
+          {[
+            "React",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "Firebase",
+            "React Native",
+            "JavaScript",
+            "Figma",
+            "Pinia",
+            "Laravel",
+            "React",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "Firebase",
+            "React Native",
+            "JavaScript",
+            "Figma",
+            "Pinia",
+            "Laravel",
+          ].map((item, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-5 px-8 font-display text-base tracking-widest text-zinc-700"
             >
-              abdikarim.dev01@gmail.com
-            </a>
-          </div>
-
-          {/* Location */}
-          <div className="p-8 rounded-2xl text-center shadow-xl border border-white/20 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 flex flex-col items-center space-y-4">
-            <MapPin size={48} className="text-purple-600" />
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              Location
-            </h3>
-            <p className="text-gray-700 dark:text-gray-300 font-medium">
-              Mogadishu, Banaadir, Somalia
-            </p>
-          </div>
-
-          {/* Social */}
-          <div className="p-8 rounded-2xl text-center shadow-xl border border-white/20 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 flex flex-col items-center space-y-6">
-            <GlobeHemisphereEast size={48} className="text-cyan-600" />
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-              Social
-            </h3>
-            <div className="flex justify-center space-x-8 text-pink-600 dark:text-pink-400">
-              <a
-                href="https://www.linkedin.com/in/abdikarim-dev-b6a94b388/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:text-pink-800 transition"
-              >
-                <LinkedinLogo size={32} />
-              </a>
-              <a
-                href="https://github.com/AbdikarimDev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="hover:text-gray-900 dark:hover:text-white transition"
-              >
-                <GithubLogo size={32} />
-              </a>
-              <a
-                href="https://x.com/AbdikarimD31284"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="hover:text-pink-500 transition"
-              >
-                <TwitterLogo size={32} />
-              </a>
-            </div>
-          </div>
-        </motion.div>
+              <span className="w-1 h-1 rounded-full bg-yellow-600 flex-shrink-0 inline-block" />
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
-    </section>
-  );
-};
 
-export default Portfolio;
+      {/* ── ABOUT ────────────────────────────────────────────────────────── */}
+      <section id="about" className="sec">
+        <div className="max-w-[1200px] mx-auto px-12 max-md:px-5">
+          <div className="grid grid-cols-2 gap-24 items-start max-lg:grid-cols-1 max-lg:gap-14">
+            {/* Text */}
+            <div>
+              <FadeUp>
+                <SectionLabel num="01" text="About Me" />
+              </FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="section-title mb-8">
+                  I build
+                  <br />
+                  <span className="text-gold">things</span>
+                  <br />
+                  that work.
+                </h2>
+              </FadeUp>
+
+              <FadeUp delay={0.2}>
+                <p className="text-zinc-400 font-light text-[16px] leading-[1.8] mb-5">
+                  I'm a{" "}
+                  <strong className="text-[#EDEAE2] font-medium">
+                    Frontend Developer
+                  </strong>{" "}
+                  based in Mogadishu with over a year of hands-on experience
+                  building dashboards, landing pages, and mobile UIs for real
+                  clients.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.28}>
+                <p className="text-zinc-400 font-light text-[16px] leading-[1.8] mb-5">
+                  Stack:{" "}
+                  <strong className="text-[#EDEAE2] font-medium">
+                    React, Vue, TypeScript, JavaScript, Tailwind CSS, Firebase,
+                  </strong>{" "}
+                  and React Native for mobile. I focus on clean code, fast
+                  interfaces, and UI that makes sense to the people using it.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.36}>
+                <p className="text-zinc-400 font-light text-[16px] leading-[1.8]">
+                  I care about the details — spacing, performance, and the small
+                  interactions that make a product feel polished. Always open to
+                  interesting projects and collaborations.
+                </p>
+              </FadeUp>
+
+              {/* Metrics */}
+              <FadeUp delay={0.44}>
+                <div
+                  className="grid grid-cols-3 mt-12"
+                  style={{ gap: "1px", background: "rgba(255,255,255,0.055)" }}
+                >
+                  {[
+                    { num: "10+", label: "Projects" },
+                    { num: "1+", label: "Years Exp." },
+                    { num: "10+", label: "Technologies" },
+                  ].map((m) => (
+                    <div
+                      key={m.label}
+                      className="bg-[#09090e] py-7 text-center"
+                    >
+                      <div className="font-display text-5xl text-gold leading-none">
+                        {m.num}
+                      </div>
+                      <div className="font-mono text-[10px] text-zinc-600 mt-1.5 tracking-widest uppercase">
+                        {m.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </FadeUp>
+            </div>
+
+            {/* Image */}
+            <FadeUp delay={0.15}>
+              <div className="relative">
+                <div className="about-img-label">Frontend Dev</div>
+                <img
+                  src={image}
+                  alt="Abdikarim"
+                  className="w-full object-cover block"
+                  style={{ aspectRatio: "3/4" }}
+                />
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SKILLS ───────────────────────────────────────────────────────── */}
+      <section
+        id="skills"
+        className="sec border-t border-b border-white/[0.055] bg-[#0e0e16]"
+      >
+        <div className="max-w-[1200px] mx-auto px-12 max-md:px-5">
+          <div className="flex justify-between items-end mb-16 max-md:flex-col max-md:items-start max-md:gap-6">
+            <div>
+              <FadeUp>
+                <SectionLabel num="02" text="Skills" />
+              </FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="section-title">
+                  My
+                  <br />
+                  <span className="text-gold">Stack.</span>
+                </h2>
+              </FadeUp>
+            </div>
+            <FadeUp delay={0.2}>
+              <p className="max-w-[280px] text-[15px] text-zinc-500 font-light leading-[1.75]">
+                Tools and technologies I work with daily to build fast,
+                scalable, production-ready interfaces.
+              </p>
+            </FadeUp>
+          </div>
+
+          <FadeUp delay={0.15}>
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+                gap: "1px",
+                background: "rgba(255,255,255,0.055)",
+              }}
+            >
+              {SKILLS.map((s, i) => (
+                <div
+                  key={i}
+                  className="skill-tile relative overflow-hidden bg-[#0e0e16] px-5 py-7 text-center cursor-none"
+                >
+                  <div
+                    className="skill-hover-bg absolute inset-0 bg-yellow-500"
+                    style={{
+                      transform: "translateY(100%)",
+                      transition: "transform 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      const parent = e.currentTarget.closest(".skill-tile");
+                      parent.querySelector(".sk-name").style.color = "#09090e";
+                      parent.querySelector(".sk-cat").style.color = "#09090e";
+                      parent.querySelector(".sk-cat").style.opacity = "0.55";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(100%)";
+                      const parent = e.currentTarget.closest(".skill-tile");
+                      parent.querySelector(".sk-name").style.color = "";
+                      parent.querySelector(".sk-cat").style.color = "";
+                      parent.querySelector(".sk-cat").style.opacity = "";
+                    }}
+                  />
+                  <div className="sk-name relative z-10 text-sm font-medium text-[#EDEAE2] transition-colors duration-200">
+                    {s.name}
+                  </div>
+                  <div className="sk-cat relative z-10 font-mono text-[10px] text-zinc-600 mt-1 tracking-wide transition-colors duration-200">
+                    {s.cat}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── PROJECTS ─────────────────────────────────────────────────────── */}
+      <section id="projects" className="sec">
+        <div className="max-w-[1200px]  mx-auto px-12 max-md:px-5">
+          {/* Header */}
+          <div className="flex justify-between items-end mb-20 max-md:flex-col max-md:items-start max-md:gap-6">
+            <div>
+              <FadeUp>
+                <SectionLabel num="03" text="Work" />
+              </FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="section-title">
+                  Featured
+                  <br />
+                  <span className="text-gold">Projects.</span>
+                </h2>
+              </FadeUp>
+            </div>
+            <FadeUp delay={0.2}>
+              <p className="max-w-[320px] text-[15px] text-zinc-500 font-light leading-[1.75]">
+                A curated selection from 10+ projects. Real clients, real
+                problems, real solutions.
+              </p>
+            </FadeUp>
+          </div>
+
+          {/* ── Featured client projects (screenshots) ── */}
+          <PhotoProvider>
+            <div className="flex flex-col gap-7">
+              {FEATURED.map((p, idx) => (
+                <FadeUp key={p.id} delay={idx * 0.08}>
+                  <div
+                    className="grid grid-cols-2 max-lg:grid-cols-1"
+                    style={{
+                      minHeight: 420,
+                      background: "rgba(255,255,255,0.055)",
+                      gap: "1px",
+                    }}
+                  >
+                    {/* Screenshots grid */}
+                    <div
+                      className="grid grid-cols-2 bg-[#191927] gap-1"
+                      style={{ gap: "1px" }}
+                    >
+                      {p.shots.slice(0, 4).map((img, j) => (
+                        <PhotoView key={j} src={img}>
+                          <img
+                            src={img}
+                            alt={`${p.title} ${j + 1}`}
+                            className="w-full object-cover block cursor-zoom-in transition-opacity duration-200 hover:opacity-80"
+                            style={{
+                              height: p.shots.length > 2 ? 210 : "100%",
+                            }}
+                          />
+                        </PhotoView>
+                      ))}
+                    </div>
+
+                    {/* Content */}
+                    <div className="bg-[#0e0e16] p-14 flex flex-col justify-between max-md:p-8">
+                      <div>
+                        <div className="font-mono text-[11px] text-gold tracking-widest mb-4">
+                          {p.num} — Client Project
+                        </div>
+                        <h3 className="project-title text-[#EDEAE2] mb-3">
+                          {p.title}
+                        </h3>
+                        <p className="font-mono text-xs text-gold/70 mb-5 tracking-wide">
+                          {p.sub}
+                        </p>
+                        <p className="text-zinc-400 font-light text-[15px] leading-[1.8]">
+                          {p.desc}
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex flex-wrap gap-2 mt-8 mb-6">
+                          {p.tags.map((t) => (
+                            <span
+                              key={t}
+                              className="font-mono text-[11px] text-zinc-600 border border-white/[0.08] px-3 py-1.5"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                        <span className="font-mono text-[11px] text-zinc-700 tracking-widest uppercase">
+                          Private Client Work
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </PhotoProvider>
+
+          {/* ── Public projects grid ── */}
+          <div className="mt-20">
+            <FadeUp>
+              <p className="font-mono text-xs tracking-[0.15em] text-zinc-700 uppercase mb-8">
+                — Public Projects
+              </p>
+            </FadeUp>
+            <div
+              className="grid grid-cols-2 max-lg:grid-cols-1"
+              style={{ gap: "1px", background: "rgba(255,255,255,0.055)" }}
+            >
+              {PUBLIC_PROJECTS.map((p, i) => (
+                <FadeUp key={p.id} delay={i * 0.07}>
+                  <div className="project-card-line relative bg-[#09090e] p-9 overflow-hidden hover:bg-[#0e0e16] transition-colors duration-300 max-md:p-6">
+                    {/* Thumbnail */}
+                    <div className="overflow-hidden mb-6">
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        className="w-full object-cover block transition-transform duration-500 hover:scale-[1.03]"
+                        style={{ height: 200 }}
+                      />
+                    </div>
+
+                    <div className="font-mono text-[11px] text-gold/60 tracking-widest mb-2">
+                      {p.num}
+                    </div>
+                    <h3 className="project-title text-[#EDEAE2] mt-1">
+                      {p.title}
+                    </h3>
+                    <p className="font-mono text-xs text-gold/60 mt-2 mb-4 tracking-wide">
+                      {p.sub}
+                    </p>
+                    <p className="text-zinc-500 font-light text-sm leading-[1.8] mb-6">
+                      {p.desc}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-7">
+                      {p.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="font-mono text-[10px] text-zinc-700 border border-white/[0.07] px-3 py-1"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-gold hover:gap-3.5 transition-all duration-200"
+                    >
+                      Live Preview <ArrowUpRight size={13} />
+                    </a>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT ──────────────────────────────────────────────────────── */}
+      <section
+        id="contact"
+        className="sec border-t border-white/[0.055] bg-[#0e0e16]"
+      >
+        <div className="max-w-[1200px] mx-auto px-12 max-md:px-5">
+          <div className="grid grid-cols-2 gap-20 items-start max-lg:grid-cols-1 max-lg:gap-14">
+            {/* Left */}
+            <div>
+              <FadeUp>
+                <SectionLabel num="04" text="Contact" />
+              </FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="contact-h2 mb-8">
+                  Let's
+                  <br />
+                  <span className="text-gold">Work</span>
+                  <br />
+                  Together.
+                </h2>
+              </FadeUp>
+              <FadeUp delay={0.2}>
+                <p className="text-zinc-400 font-light text-[16px] leading-[1.8] mb-10">
+                  Have a project in mind or want to discuss opportunities? I'm
+                  always open to interesting projects and collaborations.
+                </p>
+              </FadeUp>
+
+              <FadeUp delay={0.28}>
+                <div className="flex flex-col">
+                  {[
+                    {
+                      icon: <EnvelopeSimple size={17} />,
+                      label: "Email",
+                      val: "abdikarim.dev01@gmail.com",
+                      href: "mailto:abdikarim.dev01@gmail.com",
+                    },
+                    {
+                      icon: <MapPin size={17} />,
+                      label: "Location",
+                      val: "Mogadishu, Somalia",
+                    },
+                    {
+                      icon: <GlobeHemisphereEast size={17} />,
+                      label: "Status",
+                      val: "Open to interesting projects",
+                    },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-4 py-4 border-b border-white/[0.055]"
+                    >
+                      <div className="w-10 h-10 border border-yellow-700/30 flex items-center justify-center text-gold flex-shrink-0">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div className="font-mono text-[10px] text-zinc-700 uppercase tracking-widest mb-0.5">
+                          {item.label}
+                        </div>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            className="text-sm text-[#EDEAE2] hover:text-gold transition-colors duration-200"
+                          >
+                            {item.val}
+                          </a>
+                        ) : (
+                          <span className="text-sm text-[#EDEAE2]">
+                            {item.val}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </FadeUp>
+
+              {/* Socials */}
+              <FadeUp delay={0.36}>
+                <div
+                  className="flex mt-10"
+                  style={{ gap: "1px", background: "rgba(255,255,255,0.055)" }}
+                >
+                  {[
+                    {
+                      href: "https://www.linkedin.com/in/abdikarim-dev-b6a94b388/",
+                      icon: <LinkedinLogo size={20} />,
+                      label: "LinkedIn",
+                    },
+                    {
+                      href: "https://github.com/AbdikarimDev/",
+                      icon: <GithubLogo size={20} />,
+                      label: "GitHub",
+                    },
+                    {
+                      href: "https://x.com/AbdikarimD31284",
+                      icon: <TwitterLogo size={20} />,
+                      label: "Twitter",
+                    },
+                  ].map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="flex-1 flex items-center justify-center py-4 bg-[#0e0e16] text-zinc-600 hover:bg-yellow-500 hover:text-[#09090e] transition-all duration-200"
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
+                </div>
+              </FadeUp>
+            </div>
+
+            {/* Right — form */}
+            <FadeUp delay={0.18}>
+              <form
+                ref={formRef}
+                onSubmit={sendEmail}
+                className="flex flex-col"
+                style={{ gap: "1px" }}
+              >
+                {/* Name + Email row */}
+                <div className="grid grid-cols-2" style={{ gap: "1px" }}>
+                  {[
+                    { name: "from_name", label: "Your Name", type: "text" },
+                    {
+                      name: "from_email",
+                      label: "Email Address",
+                      type: "email",
+                    },
+                  ].map((f) => (
+                    <div
+                      key={f.name}
+                      className="form-field relative bg-[#09090e]"
+                    >
+                      <input
+                        type={f.type}
+                        name={f.name}
+                        placeholder=" "
+                        required
+                        className="w-full bg-transparent border-none outline-none pt-8 pb-3.5 px-5 text-[15px] text-[#EDEAE2] font-body"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      />
+                      <label className="absolute top-[18px] left-5 font-mono text-[10px] tracking-widest uppercase text-zinc-700 pointer-events-none transition-all duration-200">
+                        {f.label}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Subject */}
+                <div className="form-field relative bg-[#09090e]">
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder=" "
+                    required
+                    className="w-full bg-transparent border-none outline-none pt-8 pb-3.5 px-5 text-[15px] text-[#EDEAE2]"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  />
+                  <label className="absolute top-[18px] left-5 font-mono text-[10px] tracking-widest uppercase text-zinc-700 pointer-events-none transition-all duration-200">
+                    Subject
+                  </label>
+                </div>
+
+                {/* Message */}
+                <div className="form-field relative bg-[#09090e]">
+                  <textarea
+                    name="message"
+                    rows={6}
+                    placeholder=" "
+                    required
+                    className="w-full bg-transparent border-none outline-none pt-8 pb-3.5 px-5 text-[15px] text-[#EDEAE2] resize-none"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  />
+                  <label className="absolute top-[18px] left-5 font-mono text-[10px] tracking-widest uppercase text-zinc-700 pointer-events-none transition-all duration-200">
+                    Your Message
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-5 bg-yellow-500 hover:bg-yellow-400 text-[#09090e] font-display text-xl tracking-[0.1em] border-none cursor-none transition-all duration-200 hover:tracking-[0.15em]"
+                >
+                  Send Message →
+                </button>
+              </form>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ───────────────────────────────────────────────────────── */}
+      <footer className="border-t border-white/[0.055] px-12 py-7 flex justify-between items-center max-md:flex-col max-md:gap-3 max-md:text-center max-md:px-5">
+        <p className="font-mono text-xs text-zinc-700">
+          © {new Date().getFullYear()}{" "}
+          <span className="text-gold">Abdikarim</span>. Built with React &
+          Tailwind CSS.
+        </p>
+        <p className="font-mono text-xs text-zinc-700">
+          Frontend Developer · Mogadishu, Somalia
+        </p>
+      </footer>
+    </div>
+  );
+}
