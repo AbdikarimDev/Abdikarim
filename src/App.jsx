@@ -16,7 +16,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 
 // ─── Asset imports ─────────────────────────────────────────────────────────
-import image from "./assets/abdikarim.png";
+import image from "./assets/abdikarim.jpeg";
 import system from "./assets/system.png";
 import system2 from "./assets/system2.png";
 import system3 from "./assets/system3.png";
