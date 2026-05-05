@@ -16,7 +16,7 @@ import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 
 // ─── Asset imports ─────────────────────────────────────────────────────────
-import image from "./assets/abdikarim.jpeg";
+import image from "./assets/aaa.png";
 import system from "./assets/system.png";
 import system2 from "./assets/system2.png";
 import system3 from "./assets/system3.png";
@@ -408,10 +408,10 @@ export default function Portfolio() {
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section
         id="home"
-        className="min-h-screen flex items-center relative overflow-hidden pt-20"
+        className="min-h-screen bg-black flex items-center relative overflow-hidden pt-20"
       >
         <div className="max-w-[1200px] mx-auto px-12 w-full max-md:px-5">
-          <div className="grid grid-cols-[1fr_380px] gap-20 items-center max-lg:grid-cols-1 max-lg:gap-14">
+          <div className="flex justify-between items-center  ">
             {/* Left */}
             <div>
               <motion.div
@@ -422,7 +422,7 @@ export default function Portfolio() {
               >
                 <div className="w-9 h-px bg-yellow-500" />
                 <span className="font-mono text-xs tracking-[0.18em] uppercase text-gold">
-                  Frontend Developer 
+                  Frontend Developer
                 </span>
               </motion.div>
 
@@ -455,7 +455,6 @@ export default function Portfolio() {
                 <strong className="text-[#EDEAE2] font-medium">
                   React, Vue & TypeScript
                 </strong>
-               
               </motion.p>
 
               <motion.div
@@ -489,12 +488,15 @@ export default function Portfolio() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <div className="hero-frame relative overflow-hidden">
+              <div
+                className="bg-black flex items-end justify-center overflow-hidden"
+                style={{
+                 }}
+              >
                 <img
                   src={image}
-                  alt="Abdikarim — Frontend Developer"
-                  className="w-full object-cover block transition-all duration-500 hover:scale-[1.02]"
-                  style={{ height: 480, filter: "grayscale(15%)" }}
+                  alt="Abdikarim"
+                  className="w-full h-full object-cover object-top"
                   onMouseEnter={(e) =>
                     (e.target.style.filter = "grayscale(0%)")
                   }
@@ -503,6 +505,7 @@ export default function Portfolio() {
                   }
                 />
               </div>
+
               {/* Stats below photo */}
               <div
                 className="grid grid-cols-2 mt-[1px]"
@@ -605,8 +608,8 @@ export default function Portfolio() {
                   <strong className="text-[#EDEAE2] font-medium">
                     Frontend Developer
                   </strong>{" "}
-                   with over a year of hands-on experience
-                  building dashboards, landing pages, and mobile UIs 
+                  with over a year of hands-on experience building dashboards,
+                  landing pages, and mobile UIs
                 </p>
               </FadeUp>
               <FadeUp delay={0.28}>
@@ -661,7 +664,7 @@ export default function Portfolio() {
                 <img
                   src={image}
                   alt="Abdikarim"
-                  className="w-full object-cover block"
+                  className="w-full object-cover object-top block"
                   style={{ aspectRatio: "3/4" }}
                 />
               </div>
@@ -940,7 +943,7 @@ export default function Portfolio() {
                       label: "Email",
                       val: "abdikarim.dev01@gmail.com",
                       href: "mailto:abdikarim.dev01@gmail.com",
-                    }, 
+                    },
                     {
                       icon: <GlobeHemisphereEast size={17} />,
                       label: "Status",
@@ -1100,9 +1103,7 @@ export default function Portfolio() {
           <span className="text-gold">Abdikarim</span>. Built with React &
           Tailwind CSS.
         </p>
-        <p className="font-mono text-xs text-zinc-700">
-          Frontend Developer 
-        </p>
+        <p className="font-mono text-xs text-zinc-700">Frontend Developer</p>
       </footer>
     </div>
   );
