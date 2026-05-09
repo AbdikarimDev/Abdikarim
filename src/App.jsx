@@ -508,14 +508,14 @@ export default function Portfolio() {
 
               {/* Stats below photo */}
               <div
-                className="grid grid-cols-2 mt-[1px]"
-                style={{ gap: "1px", background: "rgba(255,255,255,0.055)" }}
+                className="flex justify-end items-center   mt-[1px] bg-black"
+                style={{ gap: "1px"}}
               >
                 {[
                   { num: "10+", label: "Projects Built" },
                   { num: "1+", label: "Years Experience" },
                 ].map((s) => (
-                  <div key={s.label} className="bg-[#09090e] px-5 py-5">
+                  <div key={s.label} className="bg-[#000] px-5 py-5">
                     <div className="font-display text-4xl text-gold leading-none">
                       {s.num}
                     </div>
@@ -531,10 +531,9 @@ export default function Portfolio() {
 
         {/* Decorative big text BG */}
         <div
-          className="absolute right-0 top-1/2 -translate-y-1/2 font-display pointer-events-none select-none"
+          className="absolute right-0 top-1/2 -translate-y-1/2 text-[#4e4c4c49] font-display pointer-events-none select-none"
           style={{
             fontSize: "clamp(180px, 25vw, 320px)",
-            color: "rgba(255,255,255,0.012)",
             lineHeight: 1,
           }}
         >
@@ -659,8 +658,7 @@ export default function Portfolio() {
 
             {/* Image */}
             <FadeUp delay={0.15}>
-              <div className="relative">
-                <div className="about-img-label">Frontend Dev</div>
+              <div className="relative"> 
                 <img
                   src={image}
                   alt="Abdikarim"
