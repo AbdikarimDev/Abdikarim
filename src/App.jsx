@@ -1098,8 +1098,7 @@ export default function Portfolio() {
       <footer className="border-t border-white/[0.055] px-12 py-7 flex justify-between items-center max-md:flex-col max-md:gap-3 max-md:text-center max-md:px-5">
         <p className="font-mono text-xs text-zinc-700">
           © {new Date().getFullYear()}{" "}
-          <span className="text-gold">Abdikarim</span>. Built with React &
-          Tailwind CSS.
+          <span className="text-gold">Abdikarim</span>. Built with ❤️ 
         </p>
         <p className="font-mono text-xs text-zinc-700">Frontend Developer</p>
       </footer>
